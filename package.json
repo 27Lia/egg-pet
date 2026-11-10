@@ -1,6 +1,6 @@
 {
   "name": "egg-pet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "복붙 횟수로 알을 깨는 데스크탑 펫",
   "main": "./out/main/index.js",
@@ -44,8 +44,9 @@
         "dmg"
       ],
       "category": "public.app-category.entertainment",
-      "identity": null,
-      "artifactName": "${productName}-${version}-mac-${arch}.${ext}"
+      "identity": "-",
+      "artifactName": "${productName}-${version}-mac-${arch}.${ext}",
+      "hardenedRuntime": false
     },
     "dmg": {
       "title": "${productName} ${version}"
