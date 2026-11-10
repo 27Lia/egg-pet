@@ -1,6 +1,6 @@
 {
   "name": "egg-pet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "복붙 횟수로 알을 깨는 데스크탑 펫",
   "main": "./out/main/index.js",
