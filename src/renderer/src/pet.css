@@ -1,9 +1,9 @@
 html, body, #root { margin: 0; height: 100%; background: transparent; overflow: hidden; user-select: none; font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif; }
 .stage { position: relative; height: 100%; }
 
-/* 위쪽: 퇴근 카운트다운 */
-.top { position: absolute; top: 8px; right: 16px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; pointer-events: none; }
-.pill { background: rgba(255,255,255,.95); border: 2px solid #444; border-radius: 14px; padding: 3px 12px; font-size: 12px; font-weight: 600; color: #333; }
+/* 퇴근 카운트다운: 알 위에 붙어서 같이 움직임 */
+.pill { white-space: nowrap; background: rgba(255,255,255,.95); border: 2px solid #444; border-radius: 14px; padding: 3px 12px; font-size: 12px; font-weight: 600; color: #333; margin-bottom: 2px; }
+.pill-solo { position: absolute; pointer-events: none; }
 
 /* 펫 */
 .walker { position: absolute; bottom: 4px; cursor: pointer; }

@@ -175,6 +175,15 @@ function App() {
     window.addEventListener('mouseup', up)
   }
 
+  // 알과 퇴근 말풍선이 함께 쓰는 위치(드래그하면 같이 움직임)
+  const anchorStyle: React.CSSProperties = {
+    right: eggX === null ? 24 : 'auto',
+    left: eggX === null ? 'auto' : Math.min(eggX, window.innerWidth - 100),
+    bottom: 4 + lift,
+    transition: dragging ? 'none' : 'bottom .3s cubic-bezier(.5, 0, 1, .6)'
+  }
+  const offPill = left !== null ? <div className="pill">🏃 퇴근까지 {fmt(left)}</div> : null
+
   const patEgg = async () => {
     if (movedRef.current) return // 드래그였다면 쓰다듬기로 치지 않음
     const msg = await window.api.pat()
@@ -185,10 +194,6 @@ function App() {
 
   return (
     <div className="stage">
-      <div className="top">
-        {left !== null && <div className="pill">🏃 퇴근까지 {fmt(left)}</div>}
-      </div>
-
       {s.pets.filter((p) => !p.quest).map((p) => {
         const w = walkers[p.id]
         const size = STAGE_SIZE[stageOf(p.growth)]
@@ -218,18 +223,18 @@ function App() {
         </div>
       ) : null}
 
+      {!showEgg && offPill && (
+        <div className="pill-solo" style={anchorStyle}>
+          {offPill}
+        </div>
+      )}
+
       {showEgg && (
         <div
           className="eggbox"
           key={wobble}
           ref={eggRef}
-          style={{
-            right: eggX === null ? 24 : 'auto',
-            left: eggX === null ? 'auto' : Math.min(eggX, window.innerWidth - 100),
-            bottom: 4 + lift,
-            transition: dragging ? 'none' : 'bottom .3s cubic-bezier(.5, 0, 1, .6)',
-            cursor: dragging ? 'grabbing' : 'grab'
-          }}
+          style={{ ...anchorStyle, cursor: dragging ? 'grabbing' : 'grab' }}
           onMouseDown={onEggDown}
           onMouseEnter={() => window.api.setInteractive(true)}
           onMouseLeave={() => !dragRef.current && window.api.setInteractive(false)}
@@ -237,6 +242,7 @@ function App() {
           onContextMenu={(e) => { e.preventDefault(); window.api.petMenu() }}
         >
           <Notices list={notices.egg} />
+          {offPill}
           {eggMsg && <div className="bubble egg-bubble">{eggMsg}</div>}
           <Egg progress={progress} />
           <div className="bar"><div style={{ width: `${progress * 100}%` }} /></div>
